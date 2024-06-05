@@ -3,7 +3,7 @@
 - Familiarizarse con Python y su sintaxis básica.
 - Configurar el entorno de desarrollo.
 
-#### **Teoría (30 minutos):**
+#### **Teoría:**
 1. **Introducción a Python:**
    - Historia y características.
    - Aplicaciones en administración de sistemas.
@@ -13,7 +13,7 @@
    - Introducción a IDEs y editores de texto (VSCode, PyCharm).
    - Uso de entornos virtuales.
 
-#### **Práctica (90 minutos):**
+#### **Práctica:**
 1. **Configuración del entorno:**
    - Instalación de Python.
    - Configuración de un entorno virtual.
@@ -30,14 +30,14 @@
 - Aprender a leer y escribir archivos.
 - Automatizar tareas comunes de administración de sistemas.
 
-#### **Teoría (30 minutos):**
+#### **Teoría:**
 1. **Manejo de archivos en Python:**
    - Operaciones básicas (leer, escribir, actualizar).
    - Uso de context managers (`with` statement).
 2. **Automatización de tareas:**
    - Scripts para tareas comunes (copias de seguridad, limpieza de directorios).
 
-#### **Práctica (90 minutos):**
+#### **Práctica:**
 1. **Manipulación de archivos:**
    - Leer y escribir archivos de texto.
    - Procesar archivos CSV.
@@ -53,14 +53,14 @@
 - Aprender a interactuar con el sistema operativo.
 - Manejar operaciones de red básicas.
 
-#### **Teoría (30 minutos):**
+#### **Teoría:**
 1. **Interacción con el sistema operativo:**
    - Uso del módulo `os` y `subprocess`.
 2. **Operaciones de red:**
    - Uso del módulo `socket`.
    - Realización de solicitudes HTTP con `requests`.
 
-#### **Práctica (90 minutos):**
+#### **Práctica:**
 1. **Interacción con el sistema operativo:**
    - Ejecución de comandos del sistema desde Python.
    - Gestión de procesos.
@@ -75,7 +75,7 @@
 #### **Objetivos:**
 - Gestionar usuarios y permisos del sistema.
 
-#### **Teoría (30 minutos):**
+#### **Teoría:**
 1. **Gestión de usuarios y grupos:**
    - Uso de módulos como `pwd` y `grp`.
    - Manipulación de permisos de archivos con `os.chmod`.
@@ -83,7 +83,7 @@
    - Scripts para agregar/eliminar usuarios.
    - Cambio de permisos y propiedades de archivos.
 
-#### **Práctica (90 minutos):**
+#### **Práctica:**
 1. **Gestión de usuarios:**
    - Escribir un script para listar todos los usuarios del sistema.
    - Automatizar la creación de nuevos usuarios y la asignación de grupos.
@@ -98,7 +98,7 @@
 #### **Objetivos:**
 - Implementar scripts de monitoreo y mantenimiento del sistema.
 
-#### **Teoría (30 minutos):**
+#### **Teoría:**
 1. **Monitoreo del sistema:**
    - Uso de módulos como `psutil`.
    - Registro y alerta de eventos del sistema.
@@ -106,7 +106,7 @@
    - Scripts para la limpieza del sistema.
    - Programación de tareas con `cron`.
 
-#### **Práctica (90 minutos):**
+#### **Práctica:**
 1. **Monitoreo del sistema:**
    - Crear un script que registre el uso del sistema en un archivo de log.
    - Configurar alertas para eventos específicos (p.ej., uso de disco).
