@@ -5,13 +5,20 @@
 
 #### **Teoría:**
 1. **Introducción a Python:**
-   - Historia y características.
-   - Aplicaciones en administración de sistemas.
+    - [Historia de Python](introduccion.md#historia-de-python)
+    - [Características de Python](introduccion.md#características-de-python)
+    - [Aplicaciones en Administración de Sistemas](introduccion.md#aplicaciones-en-administración-de-sistemas)
+
 2. **Instalación de Python:**
-   - Instalación en diferentes sistemas operativos (Windows, macOS, Linux).
+   - [Instalación en Windows](instalacion.md#instalación-en-windows)
+   - [Instalación en macOS](instalacion.md#instalación-en-macos)
+   - [Instalación en Linux](instalacion.md#instalación-en-linux)
+
 3. **Herramientas de desarrollo:**
-   - Introducción a IDEs y editores de texto (VSCode, PyCharm).
-   - Uso de entornos virtuales.
+   - [IDEs y Editores de Texto](herramientas.md#ides-y-editores-de-texto)
+   - [Uso de Entornos Virtuales](herramientas.md#uso-de-entornos-virtuales)
+   - [Gestión de Dependencias con `requirements.txt`](herramientas.md#gestión-de-dependencias-con-requirementstxt)
+
 
 #### **Práctica:**
 1. **Configuración del entorno:**
