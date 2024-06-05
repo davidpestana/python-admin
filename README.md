@@ -77,10 +77,10 @@
 
 #### **Teoría:**
 1. **Interacción con el sistema operativo:**
-   - Uso del módulo `os` y `subprocess`.
+   - [Uso del módulo `os` y `subprocess`.](interacciones.so.md)
 2. **Operaciones de red:**
-   - Uso del módulo `socket`.
-   - Realización de solicitudes HTTP con `requests`.
+   - [Uso del módulo `socket`.](interacciones.red.socket.md)
+   - [Realización de solicitudes HTTP con `requests`.](interacciones.red.http.md)
 
 #### **Práctica:**
 1. **Interacción con el sistema operativo:**
