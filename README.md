@@ -30,7 +30,7 @@
 
 
 #### **Práctica:**
-1. **[Configuración del entorno:](PRACTICA.1.1.md)**]
+1. **[Configuración del entorno:](PRACTICA.1.1.md)**
    - Instalación de Python.
    - Configuración de un entorno virtual.
    - Instalación de paquetes básicos (`pip`, `venv`).
