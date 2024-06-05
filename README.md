@@ -57,15 +57,18 @@
    - [Scripts para tareas comunes (copias de seguridad, limpieza de directorios).](archivos.scripts.md)
 
 #### **Práctica:**
-1. **Manipulación de archivos:**
+1. **[Manipulación de archivos:](PRACTICA.2.1.md)**
    - Leer y escribir archivos de texto.
    - Procesar archivos CSV.
-2. **Automatización:**
+2. **[Automatización:](PRACTICA.2.2.md)**
    - Escribir un script para mover archivos antiguos a un directorio de respaldo.
    - Automatizar la creación de directorios y la copia de archivos.
 
 #### **Tarea:**
 - Crear un script que lea un archivo de registro (log) y genere un informe resumido.
+
+#### **Extra:**
+- [Ejercicio Complementario: Sincronizar directorios](EXTRA.2.md)
 
 ### **Sesión 3: Interacción con el Sistema Operativo y Redes**
 #### **Objetivos:**
