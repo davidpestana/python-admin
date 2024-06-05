@@ -102,22 +102,25 @@
 
 #### **Teoría:**
 1. **Gestión de usuarios y grupos:**
-   - Uso de módulos como `pwd` y `grp`.
-   - Manipulación de permisos de archivos con `os.chmod`.
+   - [Uso de módulos como `pwd` y `grp`.](usuarios.grupos.md)
+   - [Manipulación de permisos de archivos con `os.chmod`.](usuarios.permisos.md)
 2. **Automatización de tareas de administración:**
-   - Scripts para agregar/eliminar usuarios.
-   - Cambio de permisos y propiedades de archivos.
+   - [Scripts para agregar/eliminar usuarios.](usuarios.automatizacion.operaciones.md)
+   - [Cambio de permisos y propiedades de archivos.](usuarios.automatizacion.permisos.md)
 
 #### **Práctica:**
-1. **Gestión de usuarios:**
+1. [**Gestión de usuarios:**](PRACTICA.4.1.md)
    - Escribir un script para listar todos los usuarios del sistema.
    - Automatizar la creación de nuevos usuarios y la asignación de grupos.
-2. **Permisos:**
+2. [**Permisos:**](PRACTICA.4.2.md)
    - Crear un script para cambiar permisos de archivos en un directorio.
    - Escribir un script que verifique y ajuste los permisos según un criterio predefinido.
 
 #### **Tarea:**
 - Escribir un script que revise los permisos de archivos críticos y envíe un reporte por correo electrónico.
+
+#### **Extra:**
+- [Ejercicio Complementario: Auditoría y Corrección de Permisos en un Sistema de Archivos](EXTRA.4.md)
 
 ### **Sesión 5: Monitoreo y Mantenimiento del Sistema**
 #### **Objetivos:**
