@@ -21,6 +21,7 @@
    - [Instalación en Windows](instalacion.md#instalación-en-windows)
    - [Instalación en macOS](instalacion.md#instalación-en-macos)
    - [Instalación en Linux](instalacion.md#instalación-en-linux)
+   - [Uso con Docker](docker.md#uso-con-docker)
 
 3. **Herramientas de desarrollo:**
    - [IDEs y Editores de Texto](herramientas.md#ides-y-editores-de-texto)
