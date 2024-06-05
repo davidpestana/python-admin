@@ -128,22 +128,26 @@
 
 #### **Teoría:**
 1. **Monitoreo del sistema:**
-   - Uso de módulos como `psutil`.
-   - Registro y alerta de eventos del sistema.
+   - [Uso de módulos como `psutil`.](monitoreo.psutil.md)
+   - [Registro y alerta de eventos del sistema.](monitoreo.eventos.md)
 2. **Mantenimiento:**
-   - Scripts para la limpieza del sistema.
-   - Programación de tareas con `cron`.
+   - [Scripts para la limpieza del sistema.](mantenimiento.limpieza.md)
+   - [Programación de tareas con `cron`.](mantenimiento.cron.md)
 
 #### **Práctica:**
-1. **Monitoreo del sistema:**
+1. [**Monitoreo del sistema:**](PRACTICA.5.1.md)
    - Crear un script que registre el uso del sistema en un archivo de log.
    - Configurar alertas para eventos específicos (p.ej., uso de disco).
-2. **Mantenimiento:**
+2. [**Mantenimiento:**](PRACTICA.5.2.md)
    - Escribir un script para limpiar archivos temporales y logs antiguos.
    - Automatizar la ejecución de scripts de mantenimiento usando `cron`.
 
 #### **Tarea:**
 - Configurar un script de monitoreo que ejecute tareas de mantenimiento automáticamente y genere informes periódicos.
+
+#### **Extra:**
+- [Ejercicio Complementario: Sistema de Monitoreo y Notificación Completo](EXTRA.5.md)
+
 
 ---
 
