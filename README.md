@@ -83,7 +83,7 @@
    - [Realización de solicitudes HTTP con `requests`.](interacciones.red.http.md)
 
 #### **Práctica:**
-1. **Interacción con el sistema operativo:**
+1. [**Interacción con el sistema operativo:**](PRACTICA.3.1.md)
    - Ejecución de comandos del sistema desde Python.
    - Gestión de procesos.
 2. **Operaciones de red:**
@@ -92,6 +92,9 @@
 
 #### **Tarea:**
 - Desarrollar un script que monitoree el uso del CPU y memoria, y envíe una alerta si supera un umbral definido.
+
+#### **Extra:**
+- [Ejercicio Complementario: Escaner de puertos](EXTRA.3.md)
 
 ### **Sesión 4: Gestión de Usuarios y Permisos**
 #### **Objetivos:**
