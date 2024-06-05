@@ -51,10 +51,10 @@
 
 #### **Teoría:**
 1. **Manejo de archivos en Python:**
-   - Operaciones básicas (leer, escribir, actualizar).
-   - Uso de context managers (`with` statement).
+   - [Operaciones básicas (leer, escribir, actualizar).](archivos.operaciones.md)
+   - [Uso de context managers (`with` statement).](archivos.context.manager.md)
 2. **Automatización de tareas:**
-   - Scripts para tareas comunes (copias de seguridad, limpieza de directorios).
+   - [Scripts para tareas comunes (copias de seguridad, limpieza de directorios).](archivos.scripts.md)
 
 #### **Práctica:**
 1. **Manipulación de archivos:**
