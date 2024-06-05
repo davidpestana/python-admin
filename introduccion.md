@@ -130,5 +130,3 @@ Python es una herramienta poderosa para los administradores de sistemas debido a
 
 ### **Conclusión**
 Python es un lenguaje versátil y accesible que se ha convertido en una herramienta esencial para los administradores de sistemas. Su sintaxis legible, su rica biblioteca estándar, y su amplia comunidad de usuarios lo hacen ideal para la automatización de tareas, el monitoreo del sistema, la gestión de usuarios y permisos, la interacción con servicios y APIs, y la gestión de configuraciones y despliegues. Con Python, los administradores de sistemas pueden aumentar su eficiencia y reducir el tiempo dedicado a tareas repetitivas, permitiendo una gestión más eficaz y proactiva de sus entornos.
-
-Este desarrollo extenso proporciona una base sólida para que los participantes del curso comprendan la importancia y las aplicaciones de Python en la administración de sistemas antes de pasar a las sesiones prácticas.
