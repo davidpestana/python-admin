@@ -8,6 +8,14 @@
     - [Historia de Python](introduccion.md#historia-de-python)
     - [Características de Python](introduccion.md#características-de-python)
     - [Aplicaciones en Administración de Sistemas](introduccion.md#aplicaciones-en-administración-de-sistemas)
+    - [Aprender el Lenguaje de Programación Python](lenguaje.md#aprender-el-lenguaje-de-programación-python)
+     - Sintaxis básica
+     - Tipos de datos
+     - Estructuras de datos
+     - Control de flujo
+     - Funciones y módulos
+     - Manejo de excepciones
+
 
 2. **Instalación de Python:**
    - [Instalación en Windows](instalacion.md#instalación-en-windows)
