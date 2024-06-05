@@ -86,7 +86,7 @@
 1. [**Interacción con el sistema operativo:**](PRACTICA.3.1.md)
    - Ejecución de comandos del sistema desde Python.
    - Gestión de procesos.
-2. **Operaciones de red:**
+2. [**Operaciones de red:**](PRACTICA.3.2.md)
    - Crear un script que obtenga la dirección IP de un sitio web.
    - Escribir un script para realizar solicitudes HTTP y analizar respuestas.
 
