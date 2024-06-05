@@ -30,7 +30,7 @@
 
 
 #### **Práctica:**
-1. **Configuración del entorno:**
+1. **[Configuración del entorno:](PRACTICA.1.1.md)**]
    - Instalación de Python.
    - Configuración de un entorno virtual.
    - Instalación de paquetes básicos (`pip`, `venv`).
@@ -40,6 +40,9 @@
 
 #### **Tarea:**
 - Escribir un script que tome un nombre y edad como entrada y muestre un saludo personalizado.
+
+#### **Extra:**
+- [Ejercicio Complementario: Calculadora Simple](EXTRA.1.md)
 
 ### **Sesión 2: Manejo de Archivos y Automatización de Tareas**
 #### **Objetivos:**
