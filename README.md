@@ -34,7 +34,7 @@
    - Instalación de Python.
    - Configuración de un entorno virtual.
    - Instalación de paquetes básicos (`pip`, `venv`).
-2. **Primeros pasos en Python:**
+2. **[Primeros pasos en Python:](PRACTICA.1.2.md)**
    - Escribir y ejecutar un script simple.
    - Sintaxis básica: variables, tipos de datos, operadores.
 
