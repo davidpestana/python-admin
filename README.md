@@ -150,6 +150,126 @@
 - [Ejercicio Complementario: Sistema de Monitoreo y Notificación Completo](EXTRA.5.md)
 
 
+
+
+### **Sesión 6: Uso Avanzado de Bash para Automatización**
+#### **Objetivos:**
+- Dominar técnicas avanzadas de scripting en Bash.
+- Aplicar conceptos avanzados de Bash en scripts de automatización.
+
+#### **Teoría:**
+1. **Funciones en Bash:**
+   - [Creación y uso de funciones en Bash](bash.funciones.md).
+2. **Arrays y manipulación avanzada de cadenas:**
+   - [Uso de arrays](bash.arrays.md).
+   - [Manipulación de cadenas](bash.cadenas.md).
+3. **Depuración de scripts:**
+   - [Técnicas de depuración](bash.debugging.md).
+
+#### **Práctica:**
+1. [**Creación de funciones en Bash:**](PRACTICA.6.1.md)
+   - Escribir scripts que utilicen funciones para modularidad.
+2. [**Manipulación avanzada:**](PRACTICA.6.2.md)
+   - Trabajar con arrays y cadenas complejas.
+3. [**Depuración:**](PRACTICA.6.3.md)
+   - Escribir scripts y aplicar técnicas de depuración.
+
+#### **Tarea:**
+- Crear un script Bash que automatice una tarea compleja utilizando funciones y arrays.
+
+#### **Extra:**
+- [Ejercicio Complementario: Análisis de Logs Complejo](EXTRA.6.md)
+
+### **Sesión 7: Integración de Herramientas Externas en Bash y Python**
+#### **Objetivos:**
+- Aprender a integrar herramientas externas en scripts Bash y Python.
+- Aplicar técnicas de integración en automatización.
+
+#### **Teoría:**
+1. **Uso de herramientas externas en Bash:**
+   - [Integración con herramientas como `curl`, `jq`, etc.](bash.herramientas.md).
+2. **Uso de bibliotecas externas en Python:**
+   - [Integración con bibliotecas como `requests`, `BeautifulSoup`, etc.](python.bibliotecas.md).
+
+#### **Práctica:**
+1. [**Integración en Bash:**](PRACTICA.7.1.md)
+   - Escribir scripts que utilicen `curl` y `jq` para consumir APIs y procesar JSON.
+2. [**Integración en Python:**](PRACTICA.7.2.md)
+   - Escribir scripts que usen `requests` y `BeautifulSoup` para scraping web.
+
+#### **Tarea:**
+- Crear un script que utilice una API externa para obtener datos y procesarlos.
+
+#### **Extra:**
+- [Ejercicio Complementario: Integración con Servicios en la Nube](EXTRA.7.md)
+
+### **Sesión 8: Gestión de Servicios y Daemons con Python y Bash**
+#### **Objetivos:**
+- Administrar y controlar servicios del sistema.
+- Crear y gestionar daemons.
+
+#### **Teoría:**
+1. **Gestión de servicios en Bash:**
+   - [Uso de `systemctl`, `service`, etc.](bash.servicios.md).
+2. **Creación de daemons en Python:**
+   - [Uso del módulo `daemon` y técnicas para crear daemons](python.daemon.md).
+
+#### **Práctica:**
+1. [**Gestión de servicios en Bash:**](PRACTICA.8.1.md)
+   - Escribir scripts para iniciar, detener y supervisar servicios del sistema.
+2. [**Creación de daemons en Python:**](PRACTICA.8.2.md)
+   - Escribir un daemon en Python para una tarea específica.
+
+#### **Tarea:**
+- Crear un script Bash para gestionar un servicio personalizado y un daemon en Python para monitorear un recurso del sistema.
+
+#### **Extra:**
+- [Ejercicio Complementario: Sistema de Notificación de Estado de Servicios](EXTRA.8.md)
+
+### **Sesión 9: Seguridad en Scripting**
+#### **Objetivos:**
+- Implementar prácticas de seguridad en scripting.
+- Proteger scripts y datos sensibles.
+
+#### **Teoría:**
+1. **Buenas prácticas de seguridad en Bash:**
+   - [Validación de entrada, manejo seguro de contraseñas, etc.](bash.seguridad.md).
+2. **Buenas prácticas de seguridad en Python:**
+   - [Uso de bibliotecas como `cryptography`, manejo seguro de datos, etc.](python.seguridad.md).
+
+#### **Práctica:**
+1. [**Seguridad en Bash:**](PRACTICA.9.1.md)
+   - Escribir scripts seguros que validen la entrada del usuario y manejen datos sensibles.
+2. [**Seguridad en Python:**](PRACTICA.9.2.md)
+   - Implementar técnicas de cifrado y manejo seguro de contraseñas en scripts.
+
+#### **Tarea:**
+- Crear un script que maneje datos sensibles de forma segura y proteja la información.
+
+#### **Extra:**
+- [Ejercicio Complementario: Auditoría de Seguridad en Scripts](EXTRA.9.md)
+
+### **Sesión 10: Automatización de Tareas Complejas**
+#### **Objetivos:**
+- Aplicar conocimientos avanzados para automatizar tareas complejas.
+- Integrar múltiples herramientas y lenguajes en un flujo de trabajo coherente.
+
+#### **Teoría:**
+1. **Automatización avanzada:**
+   - [Integración de múltiples herramientas y lenguajes](automatizacion.avanzada.md).
+   - [Diseño de flujos de trabajo eficientes](flujos.trabajo.md).
+
+#### **Práctica:**
+1. [**Automatización compleja:**](PRACTICA.10.1.md)
+   - Desarrollar un script avanzado que integre Bash y Python para una tarea específica.
+   - Documentar y probar el script.
+
+#### **Tarea:**
+- Completar la automatización de una tarea compleja y preparar una presentación de los resultados.
+
+#### **Extra:**
+- [Ejercicio Complementario: Despliegue de Automatización en Producción](EXTRA.10.md)
+
 ---
 
 ### **Materiales Adicionales:**
