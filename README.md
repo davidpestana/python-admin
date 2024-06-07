@@ -55,7 +55,8 @@
    - [Uso de context managers (`with` statement).](archivos.context.manager.md)
 2. **Automatización de tareas:**
    - [Scripts para tareas comunes (copias de seguridad, limpieza de directorios).](archivos.scripts.md)
-
+3. **Librerias especificas:**
+   - [oswalk](archivos.oswalk.md)
 #### **Práctica:**
 1. **[Manipulación de archivos:](PRACTICA.2.1.md)**
    - Leer y escribir archivos de texto.
