@@ -128,6 +128,7 @@ lista = [1, 2, 3, 4, 5]
 lista.append(6)
 print(lista)
 ```
+[leer mas](listas.md)
 
 #### Tuplas
 
@@ -135,6 +136,8 @@ print(lista)
 tupla = (1, 2, 3, 4, 5)
 print(tupla)
 ```
+[leer mas](tuplas.md)
+
 
 #### Diccionarios
 
@@ -143,6 +146,8 @@ diccionario = {"nombre": "Juan", "edad": 25}
 diccionario["ocupacion"] = "Estudiante"
 print(diccionario)
 ```
+[leer mas](diccionarios.md)
+
 
 #### Conjuntos
 
@@ -151,6 +156,8 @@ conjunto = {1, 2, 3, 4, 5}
 conjunto.add(6)
 print(conjunto)
 ```
+[leer mas](conjuntos.md)
+
 
 ---
 
