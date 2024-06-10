@@ -58,16 +58,10 @@ En esta sección, exploraremos en profundidad los fundamentos de Python y cómo 
 - [Aplicaciones de Python en la Industria](https://www.python.org/about/apps/)
 - [Tutorial de Python](https://docs.python.org/3/tutorial/)
 
-### **Imágenes Explicativas:**
 
-![Historia de Python](historia_python.png)
-![Características de Python](caracteristicas_python.png)
-![Aplicaciones en Administración de Sistemas](aplicaciones_admin_sistemas.png)
+### Script en Python para Generar Imágenes
 
-
-### Script en Python para Generar Imágenes Explicativas
-
-A continuación, se presenta un script en Python que utiliza la biblioteca `matplotlib` para generar imágenes explicativas de los conceptos mencionados en la sección.
+A continuación, se presenta un script en Python que utiliza la biblioteca `matplotlib` para generar algunas imagenes sobre los conceptos mencionados en la sección.
 
 ```python
 import matplotlib.pyplot as plt
