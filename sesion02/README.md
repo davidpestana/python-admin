@@ -5,17 +5,17 @@
 
 #### **Teoría:**
 1. **Manejo de archivos en Python:**
-   - [Operaciones básicas (leer, escribir, actualizar).](sesion02/archivos.operaciones.md)
-   - [Uso de context managers (`with` statement).](sesion02/archivos.context.manager.md)
+   - [Operaciones básicas (leer, escribir, actualizar).](archivos.operaciones.md)
+   - [Uso de context managers (`with` statement).](archivos.context.manager.md)
 2. **Automatización de tareas:**
-   - [Scripts para tareas comunes (copias de seguridad, limpieza de directorios).](sesion02/archivos.scripts.md)
+   - [Scripts para tareas comunes (copias de seguridad, limpieza de directorios).](archivos.scripts.md)
 3. **Librerias especificas:**
-   - [oswalk](sesion02/archivos.oswalk.md)
+   - [oswalk](archivos.oswalk.md)
 #### **Práctica:**
-1. **[Manipulación de archivos:](sesion02/practicas/PRACTICA.2.1.md)**
+1. **[Manipulación de archivos:](practicas/PRACTICA.2.1.md)**
    - Leer y escribir archivos de texto.
    - Procesar archivos CSV.
-2. **[Automatización:](sesion02/practicas/PRACTICA.2.2.md)**
+2. **[Automatización:](practicas/PRACTICA.2.2.md)**
    - Escribir un script para mover archivos antiguos a un directorio de respaldo.
    - Automatizar la creación de directorios y la copia de archivos.
 
