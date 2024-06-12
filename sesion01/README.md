@@ -63,6 +63,10 @@ En esta sección, exploraremos en profundidad los fundamentos de Python y cómo 
 
 A continuación, se presenta un script en Python que utiliza la biblioteca `matplotlib` para generar algunas imagenes sobre los conceptos mencionados en la sección.
 
+```
+pip install matplotlib
+```
+
 ```python
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
