@@ -58,6 +58,36 @@ dias = 30
 mover_archivos_antiguos(origen, respaldo, dias)
 ```
 
+
+#### Script para generar los archivos en el directorio origen ( datos de prueba para comprobar )
+Este script creará varios archivos con fechas de modificación diferentes en el directorio de origen. Usaremos el modulo `os` para crear archivos y el modulo `time` para modifcar las fechas de los archivos
+
+
+
+```python
+import os
+import time
+
+def generar_archivos(origen, num_archivos=10):
+    if not os.path.exists(origen):
+        os.makedirs(origen)
+    
+    for i in range(num_archivos):
+        archivo_path = os.path.join(origen, f"archivo_{i}.txt")
+        with open(archivo_path, 'w') as archivo:
+            archivo.write(f"Este es el contenido del archivo {i}\n")
+        
+        # Modificar la fecha de modificación del archivo
+        tiempo_modificacion = time.time() - (i * 24 * 3600)  # Resta i días al tiempo actual
+        os.utime(archivo_path, (tiempo_modificacion, tiempo_modificacion))
+        print(f"Creado: {archivo_path}")
+
+# Configurar el directorio de origen
+origen = '/ruta/al/directorio/origen'
+
+# Generar archivos en el directorio de origen
+generar_archivos(origen)
+```
 #### Script Completo para Mover Archivos Antiguos
 
 ```python
