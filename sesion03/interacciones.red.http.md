@@ -212,6 +212,106 @@ print(response.json())
 session.close()
 ```
 
+
+Para trabajar con FTP (File Transfer Protocol) en Python, se puede utilizar la biblioteca `ftplib`, que está incluida en la biblioteca estándar de Python. Esta biblioteca proporciona las herramientas necesarias para conectarse a un servidor FTP, autenticar usuarios, y transferir archivos.
+
+### Ejemplo de Uso de `ftplib`
+
+A continuación, se presenta un ejemplo básico que muestra cómo conectarse a un servidor FTP, listar los archivos en un directorio y descargar un archivo.
+
+#### Conexión y Autenticación
+
+```python
+from ftplib import FTP
+
+# Conectar al servidor FTP
+ftp = FTP('ftp.example.com')
+ftp.login(user='username', passwd='password')
+
+# Listar archivos en el directorio actual
+ftp.retrlines('LIST')
+
+# Descargar un archivo
+filename = 'example.txt'
+with open(filename, 'wb') as local_file:
+    ftp.retrbinary('RETR ' + filename, local_file.write)
+
+# Cerrar la conexión
+ftp.quit()
+```
+
+### Subir un Archivo
+
+Para subir un archivo al servidor FTP, se puede usar el método `storbinary`.
+
+```python
+from ftplib import FTP
+
+# Conectar al servidor FTP
+ftp = FTP('ftp.example.com')
+ftp.login(user='username', passwd='password')
+
+# Subir un archivo
+filename = 'example.txt'
+with open(filename, 'rb') as local_file:
+    ftp.storbinary('STOR ' + filename, local_file)
+
+# Cerrar la conexión
+ftp.quit()
+```
+
+### Crear y Cambiar Directorios
+
+También es posible crear nuevos directorios y cambiar el directorio de trabajo en el servidor FTP.
+
+```python
+from ftplib import FTP
+
+# Conectar al servidor FTP
+ftp = FTP('ftp.example.com')
+ftp.login(user='username', passwd='password')
+
+# Crear un nuevo directorio
+ftp.mkd('new_directory')
+
+# Cambiar al nuevo directorio
+ftp.cwd('new_directory')
+
+# Listar archivos en el nuevo directorio
+ftp.retrlines('LIST')
+
+# Cerrar la conexión
+ftp.quit()
+```
+
+### Manejo de Errores
+
+Es importante manejar posibles errores durante la conexión y la transferencia de archivos. Esto se puede hacer utilizando bloques `try` y `except`.
+
+```python
+from ftplib import FTP, error_perm
+
+try:
+    # Conectar al servidor FTP
+    ftp = FTP('ftp.example.com')
+    ftp.login(user='username', passwd='password')
+
+    # Listar archivos en el directorio actual
+    ftp.retrlines('LIST')
+
+    # Descargar un archivo
+    filename = 'example.txt'
+    with open(filename, 'wb') as local_file:
+        ftp.retrbinary('RETR ' + filename, local_file.write)
+
+except error_perm as e:
+    print('FTP error:', e)
+
+finally:
+    # Asegurarse de cerrar la conexión
+    ftp.quit()
+```
+
 ### Conclusión
 
 El módulo `requests` en Python es una herramienta poderosa y versátil para realizar solicitudes HTTP. Proporciona una interfaz simple y limpia para enviar solicitudes y manejar respuestas, lo que facilita la interacción con servicios web y APIs. Dominar `requests` es esencial para cualquier desarrollador que trabaje con aplicaciones web o necesite consumir servicios RESTful.
