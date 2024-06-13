@@ -8,11 +8,7 @@ Un socket tiene dos componentes principales:
 1. **Dirección IP**: Identifica de manera única a un dispositivo en la red.
 2. **Número de Puerto**: Identifica una aplicación o servicio específico en el dispositivo.
 
-### Ejemplo Visual
-
 Piensa en un socket como un teléfono con un número único (dirección IP) y una extensión (puerto) específica para cada departamento o servicio en una empresa.
-
-![Socket Visual](https://i.imgur.com/G5T3FXW.png)
 
 ### ¿Para Qué Sirve un Socket?
 
@@ -55,16 +51,6 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
 #### 2. Cliente HTTP
 
 Un navegador web actúa como un cliente que usa sockets para conectarse al servidor, solicitar páginas web y recibirlas.
-
-### Imágenes Ilustrativas
-
-1. **Servidor HTTP**:
-   ![Servidor HTTP](https://i.imgur.com/YjA8fyV.png)
-   *Un servidor HTTP escuchando en el puerto 80, listo para responder a solicitudes.*
-
-2. **Cliente HTTP**:
-   ![Cliente HTTP](https://i.imgur.com/YtOvHkB.png)
-   *Un navegador web (cliente) se conecta al servidor para solicitar una página web.*
 
 ### Conclusión
 
