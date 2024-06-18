@@ -9,6 +9,7 @@
 2. **Arrays y manipulación avanzada de cadenas:**
    - [Uso de arrays](bash.arrays.md).
    - [Manipulación de cadenas](bash.cadenas.md).
+3  - [Estructuras de Control](algoritmos.md)
 3. **Depuración de scripts:**
    - [Técnicas de depuración](bash.debugging.md).
 
