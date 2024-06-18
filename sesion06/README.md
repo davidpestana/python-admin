@@ -3,6 +3,8 @@
 - Dominar técnicas avanzadas de scripting en Bash.
 - Aplicar conceptos avanzados de Bash en scripts de automatización.
 
+[Diferencias entre Sh y Bash](sh-bash.md)
+
 #### **Teoría:**
 1. **Funciones en Bash:**
    - [Creación y uso de funciones en Bash](bash.funciones.md).

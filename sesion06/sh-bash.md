@@ -1,241 +1,136 @@
-### **Estructuras Algorítmicas en Bash**
+### **Diferencias entre `sh` y `bash`**
 
-En Bash, puedes utilizar diversas estructuras de control para escribir algoritmos complejos. Estas estructuras incluyen condicionales, bucles y funciones. A continuación, se detallan estas estructuras junto con ejemplos para ilustrar su uso.
+Tanto `sh` (Bourne Shell) como `bash` (Bourne Again Shell) son intérpretes de comandos utilizados en sistemas Unix y Linux. Sin embargo, existen diferencias significativas entre ambos, tanto en características como en uso. A continuación, se detallan estas diferencias.
 
-#### **1. Condicionales**
+#### **1. Historia y Orígenes**
 
-##### **Sentencia `if-else`**
+- **`sh` (Bourne Shell):** Creado por Stephen Bourne en 1979, `sh` es el shell original en Unix. Fue diseñado como un intérprete de comandos básico con capacidades de scripting.
+- **`bash` (Bourne Again Shell):** Desarrollado por Brian Fox para el Proyecto GNU en 1989, `bash` es una mejora de `sh` que incluye muchas características adicionales.
 
-```bash
-#!/bin/bash
+#### **2. Características Adicionales en `bash`**
 
-echo "Ingrese un número:"
-read numero
+##### **Funciones de Programación Avanzadas**
 
-if [ $numero -gt 10 ]; then
-    echo "El número es mayor que 10"
-elif [ $numero -eq 10 ]; then
-    echo "El número es igual a 10"
-else
-    echo "El número es menor que 10"
-fi
-```
+- **Arreglos:**
+  - `bash` soporta arreglos unidimensionales, mientras que `sh` no.
+  - Ejemplo en `bash`:
+    ```bash
+    # Declaración de un array
+    array=("uno" "dos" "tres")
+    echo ${array[0]}  # Salida: uno
+    ```
 
-##### **Operadores de Comparación**
+- **Expansión de Llaves:**
+  - `bash` permite la expansión de llaves para generar múltiples cadenas.
+  - Ejemplo en `bash`:
+    ```bash
+    echo {A..Z}  # Salida: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+    ```
 
-- `-eq`: Igual a
-- `-ne`: No igual a
-- `-lt`: Menor que
-- `-le`: Menor o igual que
-- `-gt`: Mayor que
-- `-ge`: Mayor o igual que
+- **Expansión Aritmética Mejorada:**
+  - `bash` soporta una sintaxis aritmética mejorada con `((...))`.
+  - Ejemplo en `bash`:
+    ```bash
+    ((a = 5 + 3))
+    echo $a  # Salida: 8
+    ```
 
-##### **Condiciones Compuestas**
+##### **Funciones de Scripting Mejoradas**
 
-```bash
-#!/bin/bash
-
-echo "Ingrese un número:"
-read numero
-
-if [ $numero -gt 10 ] && [ $numero -lt 20 ]; then
-    echo "El número está entre 10 y 20"
-fi
-```
-
-#### **2. Bucles**
-
-##### **Bucle `for`**
-
-```bash
-#!/bin/bash
-
-for i in {1..5}; do
-    echo "Iteración $i"
-done
-```
-
-##### **Bucle `while`**
-
-```bash
-#!/bin/bash
-
-contador=1
-
-while [ $contador -le 5 ]; do
-    echo "Contador: $contador"
-    ((contador++))
-done
-```
-
-##### **Bucle `until`**
-
-```bash
-#!/bin/bash
-
-contador=1
-
-until [ $contador -gt 5 ]; do
-    echo "Contador: $contador"
-    ((contador++))
-done
-```
-
-##### **Bucle `select`**
-
-```bash
-#!/bin/bash
-
-echo "Seleccione una opción:"
-select opcion in "Opción 1" "Opción 2" "Salir"; do
-    case $opcion in
-        "Opción 1")
-            echo "Elegiste Opción 1"
-            ;;
-        "Opción 2")
-            echo "Elegiste Opción 2"
-            ;;
-        "Salir")
-            break
-            ;;
-        *)
-            echo "Opción inválida"
-            ;;
-    esac
-done
-```
-
-#### **3. Funciones**
-
-Las funciones permiten modularizar el código, haciéndolo más legible y reutilizable.
-
-```bash
-#!/bin/bash
-
-# Definición de una función
-mi_funcion() {
-    echo "Hola, esta es una función"
-}
-
-# Llamada a la función
-mi_funcion
-```
-
-##### **Funciones con Parámetros**
-
-```bash
-#!/bin/bash
-
-# Definición de una función con parámetros
-saludar() {
-    echo "Hola, $1 $2"
-}
-
-# Llamada a la función con argumentos
-saludar "Juan" "Pérez"
-```
-
-##### **Retorno de Valores**
-
-```bash
-#!/bin/bash
-
-# Función para sumar dos números
-sumar() {
-    local resultado=$(( $1 + $2 ))
-    echo $resultado
-}
-
-# Llamada a la función y captura del resultado
-resultado=$(sumar 3 5)
-echo "La suma es: $resultado"
-```
-
-#### **4. Manejo de Archivos**
-
-##### **Lectura de Archivos**
-
-```bash
-#!/bin/bash
-
-# Leer un archivo línea por línea
-while IFS= read -r linea; do
-    echo $linea
-done < "archivo.txt"
-```
-
-##### **Escritura en Archivos**
-
-```bash
-#!/bin/bash
-
-# Escribir en un archivo
-echo "Este es un texto de ejemplo" > "salida.txt"
-
-# Añadir texto a un archivo existente
-echo "Este es otro texto de ejemplo" >> "salida.txt"
-```
-
-#### **5. Estructuras Algorítmicas Complejas**
-
-##### **Ejemplo: Script para Calcular Factorial**
-
-```bash
-#!/bin/bash
-
-# Función para calcular el factorial de un número
-factorial() {
-    if [ $1 -le 1 ]; then
-        echo 1
-    else
-        local temp=$(( $1 - 1 ))
-        local result=$(factorial $temp)
-        echo $(( $1 * result ))
+- **Sentencias Condicionales Mejoradas:**
+  - `bash` soporta `[[...]]` para pruebas condicionales más avanzadas.
+  - Ejemplo en `bash`:
+    ```bash
+    if [[ -f "archivo.txt" ]]; then
+        echo "El archivo existe"
     fi
-}
+    ```
 
-echo "Ingrese un número:"
-read numero
+- **Mejor Manejo de Variables:**
+  - `bash` tiene características adicionales para el manejo de variables, como `${var,,}` para convertir a minúsculas.
+  - Ejemplo en `bash`:
+    ```bash
+    var="TEXTO"
+    echo ${var,,}  # Salida: texto
+    ```
 
-# Verificar que el número es positivo
-if [ $numero -lt 0 ]; then
-    echo "Por favor ingrese un número positivo"
-else
-    resultado=$(factorial $numero)
-    echo "El factorial de $numero es $resultado"
-fi
-```
+##### **Historia y Autocompletar**
 
-##### **Ejemplo: Script para Ordenar Números (Método Burbuja)**
+- **Historial de Comandos:**
+  - `bash` guarda un historial de comandos que se puede navegar con las teclas de flechas.
+  - `sh` no tiene esta funcionalidad por defecto.
+
+- **Autocompletado:**
+  - `bash` ofrece autocompletado de comandos y nombres de archivos presionando `Tab`.
+  - `sh` no soporta autocompletado.
+
+#### **3. Compatibilidad**
+
+- **Compatibilidad hacia Atrás:**
+  - `bash` es compatible con los scripts escritos para `sh`, ya que hereda sus características básicas.
+  - Sin embargo, scripts escritos para `bash` que utilicen sus características avanzadas no serán compatibles con `sh`.
+
+- **Ejecutar Scripts en `sh` con `bash`:**
+  - Puedes ejecutar scripts de `sh` en `bash` sin problemas, pero no al revés si el script utiliza características específicas de `bash`.
+
+#### **4. Interactividad y Uso**
+
+- **Interactividad:**
+  - `bash` está diseñado para ser más interactivo y amigable para los usuarios con características como autocompletado, historial de comandos y comandos de edición de línea.
+  - `sh` es más minimalista y carece de muchas de las características interactivas que se encuentran en `bash`.
+
+#### **5. Ejemplo Comparativo**
+
+A continuación, se presenta un ejemplo comparativo de un script que utiliza características específicas de `bash` que no serían compatibles con `sh`.
+
+##### **Script en `bash`:**
 
 ```bash
 #!/bin/bash
 
-# Función para ordenar un array usando el método burbuja
-burbuja() {
-    local arr=("$@")
-    local n=${#arr[@]}
-    for ((i = 0; i < n; i++)); do
-        for ((j = 0; j < n-i-1; j++)); do
-            if [ ${arr[j]} -gt ${arr[$((j+1))]} ]; then
-                # Intercambiar
-                local temp=${arr[j]}
-                arr[j]=${arr[$((j+1))]}
-                arr[$((j+1))]=$temp
-            fi
-        done
-    done
-    echo "${arr[@]}"
-}
+# Declaración de un array
+nombres=("Juan" "Pedro" "Maria")
 
-echo "Ingrese los números separados por espacio:"
-read -a numeros
+# Uso de expansión de llaves
+for letra in {A..C}; do
+    echo "Letra: $letra"
+done
 
-# Ordenar los números
-numeros_ordenados=($(burbuja "${numeros[@]}"))
-echo "Números ordenados: ${numeros_ordenados[@]}"
+# Prueba condicional avanzada
+archivo="ejemplo.txt"
+if [[ -f $archivo && -r $archivo ]]; then
+    echo "El archivo $archivo existe y es legible"
+fi
+
+# Manejo de variables avanzado
+cadena="TEXTO EN MAYÚSCULAS"
+echo ${cadena,,}  # Convertir a minúsculas
+```
+
+##### **Script en `sh` Equivalente (con limitaciones):**
+
+```sh
+#!/bin/sh
+
+# Declaración de un array (no soportado)
+# nombres=("Juan" "Pedro" "Maria")
+
+# Uso de expansión de llaves (no soportado)
+# for letra in {A..C}; do
+#     echo "Letra: $letra"
+# done
+
+# Prueba condicional básica
+archivo="ejemplo.txt"
+if [ -f $archivo ] && [ -r $archivo ]; then
+    echo "El archivo $archivo existe y es legible"
+fi
+
+# Manejo de variables básico (no hay conversión a minúsculas)
+cadena="TEXTO EN MAYÚSCULAS"
+# echo ${cadena,,}  # No soportado en sh
 ```
 
 ### **Conclusión**
 
-Bash ofrece una amplia variedad de estructuras algorítmicas que te permiten escribir scripts potentes y flexibles. Entender y dominar estas estructuras es fundamental para desarrollar soluciones de automatización eficientes. Con el uso adecuado de condicionales, bucles, funciones y manejo de archivos, puedes abordar problemas complejos de manera efectiva en tus scripts de Bash.
+Aunque `sh` y `bash` comparten muchas similitudes, `bash` ofrece muchas características adicionales que facilitan la escritura de scripts complejos y la interacción con el sistema. Si bien `sh` es adecuado para scripts simples y entornos donde la compatibilidad es crucial, `bash` es más potente y adecuado para la mayoría de las tareas de scripting en sistemas modernos.
