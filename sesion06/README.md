@@ -8,6 +8,8 @@
 #### **Teoría:**
 1. **Funciones en Bash:**
    - [Creación y uso de funciones en Bash](bash.funciones.md).
+   - [Asincronía](asincronia.md)
+
 2. **Arrays y manipulación avanzada de cadenas:**
    - [Uso de arrays](bash.arrays.md).
    - [Manipulación de cadenas](bash.cadenas.md).
