@@ -109,4 +109,126 @@
        print('Media:', np.mean(arr))
        ```
 
-Estos ejemplos muestran cómo integrar diversas bibliotecas externas en scripts Python para realizar tareas comunes como solicitudes HTTP, análisis de HTML, manipulación de datos y visualización de datos utilizando APIs públicas confiables y funcionales.
+
+
+### Ejemplos Prácticos para la Integración de Herramientas Externas en Bash y Python
+
+#### Bash
+
+1. **Descargar y procesar datos de una API REST con `curl` y `jq`**
+
+   ```bash
+   # Obtener una lista de usuarios y filtrar solo los nombres
+   curl -X GET "https://jsonplaceholder.typicode.com/users" | jq '.[].name'
+   ```
+
+2. **Automatizar la descarga de un archivo y verificar su integridad**
+
+   ```bash
+   # Descargar archivo y verificar checksum
+   curl -O http://example.com/file.zip
+   curl -O http://example.com/file.zip.sha256
+   sha256sum -c file.zip.sha256
+   ```
+
+3. **Monitorear el estado de una página web**
+
+   ```bash
+   # Revisar si una página está activa
+   URL="http://example.com"
+   STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" $URL)
+   if [ $STATUS -eq 200 ]; then
+     echo "La página está activa."
+   else
+     echo "La página no está activa. Código de estado: $STATUS"
+   fi
+   ```
+
+4. **Interactuar con una API y guardar la respuesta en un archivo**
+
+   ```bash
+   # Obtener y guardar datos de una API
+   curl -X GET "https://jsonplaceholder.typicode.com/posts" -o posts.json
+   ```
+
+5. **Extraer información específica de un archivo JSON**
+
+   ```bash
+   # Filtrar títulos de posts
+   cat posts.json | jq '.[].title'
+   ```
+
+#### Python
+
+6. **Enviar una solicitud POST a una API**
+
+   ```python
+   import requests
+
+   # Datos para enviar
+   payload = {'title': 'foo', 'body': 'bar', 'userId': 1}
+   response = requests.post('https://jsonplaceholder.typicode.com/posts', json=payload)
+   if response.status_code == 201:
+       print('Post creado:', response.json())
+   else:
+       print('Error:', response.status_code)
+   ```
+
+7. **Scraping de datos de una página web y guardarlos en un archivo CSV**
+
+   ```python
+   import requests
+   from bs4 import BeautifulSoup
+   import csv
+
+   url = 'https://en.wikipedia.org/wiki/Web_scraping'
+   response = requests.get(url)
+   if response.status_code == 200:
+       soup = BeautifulSoup(response.text, 'html.parser')
+       headers = soup.find_all(['h1', 'h2', 'h3'])
+       
+       with open('headers.csv', 'w', newline='') as file:
+           writer = csv.writer(file)
+           writer.writerow(['Header'])
+           for header in headers:
+               writer.writerow([header.get_text()])
+   else:
+       print('Error:', response.status_code)
+   ```
+
+8. **Análisis de datos y visualización con `pandas` y `matplotlib`**
+
+   ```python
+   import pandas as pd
+   import matplotlib.pyplot as plt
+
+   # Leer datos desde un archivo CSV
+   df = pd.read_csv('data.csv')
+
+   # Visualizar los datos
+   df.plot(kind='bar', x='Nombre', y='Edad')
+   plt.title('Edades de Personas')
+   plt.show()
+   ```
+
+9. **Realizar operaciones matemáticas avanzadas con `numpy`**
+
+   ```python
+   import numpy as np
+
+   # Crear un arreglo numpy y calcular la desviación estándar
+   arr = np.array([1, 2, 3, 4, 5])
+   print('Desviación estándar:', np.std(arr))
+   ```
+
+10. **Automatizar tareas de red con `subprocess` en Python**
+
+    ```python
+    import subprocess
+
+    # Ejecutar un comando ping y capturar la salida
+    result = subprocess.run(['ping', '-c', '4', 'google.com'], stdout=subprocess.PIPE)
+    print(result.stdout.decode('utf-8'))
+    ```
+
+Estos ejemplos prácticos muestran cómo integrar diversas herramientas y bibliotecas en scripts Bash y Python para automatizar tareas comunes de sistemas, mejorar la eficiencia y facilitar la gestión de datos.
