@@ -1,14 +1,14 @@
-# Buenas Prácticas de Seguridad en Python
+# Práctica 9.2: Seguridad en Python
 
-## Introducción
+## Objetivo
 
-La seguridad en scripting Python es crucial para proteger datos sensibles y prevenir vulnerabilidades. Esta guía explora las mejores prácticas para implementar la seguridad en scripts Python, incluyendo el uso de bibliotecas como `cryptography` para cifrar datos y técnicas para manejar contraseñas de forma segura.
+El objetivo de esta práctica es aprender a implementar técnicas de cifrado y manejo seguro de contraseñas en scripts Python. Esto es crucial para proteger datos sensibles y prevenir vulnerabilidades en aplicaciones y sistemas.
 
-## Uso de la Biblioteca `cryptography`
+## Ejercicio
 
-La biblioteca `cryptography` proporciona herramientas robustas para cifrar y descifrar datos. Asegurarse de que los datos sensibles estén cifrados es esencial para proteger la información.
+### 1. Cifrado y Descifrado de Datos
 
-### Instalación de `cryptography`
+#### Instalación de la Biblioteca `cryptography`
 
 Primero, instala la biblioteca `cryptography` utilizando `pip`.
 
@@ -16,14 +16,14 @@ Primero, instala la biblioteca `cryptography` utilizando `pip`.
 pip install cryptography
 ```
 
-### Cifrado y Descifrado de Datos
+#### Código del Script para Cifrado y Descifrado
 
-#### Ejemplo de Cifrado
+Este script cifra y descifra un mensaje utilizando la biblioteca `cryptography`.
 
 ```python
 from cryptography.fernet import Fernet
 
-# Generar una clave
+# Generar una clave de cifrado
 clave = Fernet.generate_key()
 cipher_suite = Fernet(clave)
 
@@ -33,43 +33,25 @@ mensaje = b"Este es un mensaje secreto"
 # Cifrar el mensaje
 mensaje_cifrado = cipher_suite.encrypt(mensaje)
 print("Mensaje cifrado:", mensaje_cifrado)
-```
 
-#### Ejemplo de Descifrado
-
-```python
 # Descifrar el mensaje
 mensaje_descifrado = cipher_suite.decrypt(mensaje_cifrado)
 print("Mensaje descifrado:", mensaje_descifrado.decode())
 ```
 
-*Solución:* Generamos una clave de cifrado, ciframos un mensaje y luego lo desciframos.
+#### Guardar el Script
 
-## Manejo Seguro de Contraseñas
+Guarda el script con el nombre `cifrar_descifrar.py`.
 
-El manejo seguro de contraseñas es esencial para evitar compromisos de seguridad. Nunca almacenes contraseñas en texto plano y utiliza técnicas seguras para almacenar y verificar contraseñas.
+#### Ejecutar el Script
 
-### Uso de `getpass` para Solicitar Contraseñas de Forma Segura
-
-La biblioteca `getpass` permite solicitar contraseñas al usuario de manera que no se muestren en la pantalla.
-
-#### Ejemplo de Uso de `getpass`
-
-```python
-import getpass
-
-# Solicitar la contraseña al usuario
-contrasena = getpass.getpass("Introduce la contraseña: ")
-print("Contraseña introducida de forma segura.")
+```bash
+python cifrar_descifrar.py
 ```
 
-*Solución:* Utilizamos `getpass.getpass` para solicitar la contraseña al usuario sin mostrarla en la pantalla.
+### 2. Manejo Seguro de Contraseñas
 
-### Almacenamiento Seguro de Contraseñas con `bcrypt`
-
-La biblioteca `bcrypt` se utiliza para hashear y verificar contraseñas de forma segura.
-
-#### Instalación de `bcrypt`
+#### Instalación de la Biblioteca `bcrypt`
 
 Primero, instala la biblioteca `bcrypt` utilizando `pip`.
 
@@ -77,7 +59,9 @@ Primero, instala la biblioteca `bcrypt` utilizando `pip`.
 pip install bcrypt
 ```
 
-#### Ejemplo de Hashing y Verificación de Contraseñas
+#### Código del Script para Hashing y Verificación de Contraseñas
+
+Este script hashea una contraseña y luego verifica la contraseña introducida por el usuario.
 
 ```python
 import bcrypt
@@ -89,147 +73,155 @@ contrasena = b"mi_contraseña_segura"
 hash_contrasena = bcrypt.hashpw(contrasena, bcrypt.gensalt())
 print("Hash de la contraseña:", hash_contrasena)
 
+# Solicitar la contraseña al usuario
+contrasena_usuario = input("Introduce tu contraseña: ").encode()
+
 # Verificar la contraseña
-if bcrypt.checkpw(contrasena, hash_contrasena):
+if bcrypt.checkpw(contrasena_usuario, hash_contrasena):
     print("La contraseña es correcta.")
 else:
     print("La contraseña es incorrecta.")
 ```
 
-*Solución:* Utilizamos `bcrypt` para generar un hash de la contraseña y luego verificarla de manera segura.
+#### Guardar el Script
 
-## Evitar Vulnerabilidades Comunes
+Guarda el script con el nombre `hash_verificar_contraseña.py`.
 
-### Inyecciones SQL
+#### Ejecutar el Script
 
-Las inyecciones SQL pueden ocurrir cuando se concatenan consultas SQL con datos de entrada del usuario. Utiliza siempre consultas parametrizadas para evitar estas vulnerabilidades.
-
-#### Ejemplo de Consulta SQL Insegura
-
-```python
-import sqlite3
-
-# Conexión a la base de datos
-conn = sqlite3.connect('example.db')
-cursor = conn.cursor()
-
-# Entrada del usuario
-usuario_id = input("Introduce el ID del usuario: ")
-
-# Consulta SQL insegura
-cursor.execute(f"SELECT * FROM usuarios WHERE id = {usuario_id}")
-
-# Obtener resultados
-resultados = cursor.fetchall()
-print(resultados)
+```bash
+python hash_verificar_contraseña.py
 ```
 
-*Problema:* La consulta SQL es vulnerable a inyecciones si el usuario introduce una entrada maliciosa.
+### 3. Uso de Variables de Entorno para Gestionar Secretos
 
-#### Ejemplo de Consulta SQL Segura
+#### Código del Script para Leer Secretos desde Variables de Entorno
 
-```python
-import sqlite3
-
-# Conexión a la base de datos
-conn = sqlite3.connect('example.db')
-cursor = conn.cursor()
-
-# Entrada del usuario
-usuario_id = input("Introduce el ID del usuario: ")
-
-# Consulta SQL segura
-cursor.execute("SELECT * FROM usuarios WHERE id = ?", (usuario_id,))
-
-# Obtener resultados
-resultados = cursor.fetchall()
-print(resultados)
-```
-
-*Solución:* Utilizamos consultas parametrizadas para prevenir inyecciones SQL.
-
-## Registro y Auditoría
-
-Registrar las acciones de los scripts y mantener un historial de auditoría es crucial para la seguridad y el análisis de incidentes.
-
-### Ejemplo de Registro con `logging`
-
-#### Código del Script con Registro
+Este script lee una contraseña almacenada en una variable de entorno y la utiliza para conectar a una base de datos.
 
 ```python
-import logging
+import os
 
-# Configurar el registro
-logging.basicConfig(filename='/var/log/mi_script.log', level=logging.INFO)
+# Leer la contraseña desde la variable de entorno
+contrasena = os.getenv('DB_PASSWORD')
 
-# Registrar un mensaje
-logging.info('El script ha comenzado.')
-
-# Simular una acción del script
-print("Haciendo algo importante...")
-logging.info('Acción importante completada.')
-
-logging.info('El script ha finalizado.')
+if contrasena:
+    print("La contraseña ha sido leída desde la variable de entorno.")
+else:
+    print("No se encontró la variable de entorno DB_PASSWORD.")
 ```
 
-*Solución:* Utilizamos la biblioteca `logging` para registrar mensajes en un archivo de log.
+#### Guardar el Script
+
+Guarda el script con el nombre `leer_variable_entorno.py`.
+
+#### Configurar la Variable de Entorno y Ejecutar el Script
+
+Configura la variable de entorno y ejecuta el script.
+
+```bash
+export DB_PASSWORD='mi_contraseña_segura'
+python leer_variable_entorno.py
+```
 
 ## Casos Prácticos
 
-### Caso Práctico 1: Script Seguro para Cifrado de Archivos
+### Caso Práctico 1: Cifrado de Archivos
 
-#### Código del Script
+#### Código del Script para Cifrar y Descifrar Archivos
+
+Este script cifra y descifra el contenido de un archivo.
 
 ```python
 from cryptography.fernet import Fernet
-import getpass
 
-# Generar y guardar la clave en un archivo
+# Generar una clave de cifrado
 clave = Fernet.generate_key()
-with open("clave.key", "wb") as key_file:
-    key_file.write(clave)
-
-# Crear la suite de cifrado
 cipher_suite = Fernet(clave)
 
-# Solicitar la contraseña al usuario
-contrasena = getpass.getpass("Introduce la contraseña para cifrar el archivo: ")
+# Ruta del archivo
+archivo = "archivo_secreto.txt"
 
-# Cifrar la contraseña
-contrasena_cifrada = cipher_suite.encrypt(contrasena.encode())
+# Cifrar el contenido del archivo
+with open(archivo, "rb") as file:
+    contenido = file.read()
+contenido_cifrado = cipher_suite.encrypt(contenido)
 
-# Guardar la contraseña cifrada en un archivo
-with open("contrasena_cifrada.txt", "wb") as file:
-    file.write(contrasena_cifrada)
+with open("archivo_cifrado.txt", "wb") as file:
+    file.write(contenido_cifrado)
+print("Archivo cifrado guardado como 'archivo_cifrado.txt'.")
 
-print("Contraseña cifrada y guardada en contrasena_cifrada.txt.")
+# Descifrar el contenido del archivo cifrado
+with open("archivo_cifrado.txt", "rb") as file:
+    contenido_cifrado = file.read()
+contenido_descifrado = cipher_suite.decrypt(contenido_cifrado)
+
+with open("archivo_descifrado.txt", "wb") as file:
+    file.write(contenido_descifrado)
+print("Archivo descifrado guardado como 'archivo_descifrado.txt'.")
 ```
 
-*Solución:* Este script cifra una contraseña introducida por el usuario y la guarda en un archivo de manera segura.
+#### Guardar el Script
 
-### Caso Práctico 2: Script Seguro para Validación de Usuario
+Guarda el script con el nombre `cifrar_descifrar_archivo.py`.
 
-#### Código del Script
+#### Crear un Archivo de Prueba y Ejecutar el Script
+
+Crea un archivo `archivo_secreto.txt` con contenido de prueba y luego ejecuta el script.
+
+```bash
+echo "Este es el contenido secreto" > archivo_secreto.txt
+python cifrar_descifrar_archivo.py
+```
+
+### Caso Práctico 2: Gestión Segura de Configuraciones
+
+#### Código del Script para Leer Configuraciones desde un Archivo Cifrado
+
+Este script lee configuraciones desde un archivo JSON cifrado.
 
 ```python
-import bcrypt
-import getpass
+import json
+from cryptography.fernet import Fernet
 
-# Contraseña almacenada en la base de datos (previamente hasheada)
-hash_contrasena_almacenada = b'$2b$12$eImiTXuWVxfM37uY4JANjQ=='
+# Generar una clave de cifrado
+clave = Fernet.generate_key()
+cipher_suite = Fernet(clave)
 
-# Solicitar la contraseña al usuario
-contrasena = getpass.getpass("Introduce tu contraseña: ")
+# Configuración a cifrar
+configuracion = {
+    "db_host": "localhost",
+    "db_user": "usuario",
+    "db_password": "mi_contraseña_segura"
+}
 
-# Verificar la contraseña
-if bcrypt.checkpw(contrasena.encode(), hash_contrasena_almacenada):
-    print("Acceso concedido.")
-else:
-    print("Acceso denegado.")
+# Cifrar la configuración
+configuracion_json = json.dumps(configuracion).encode()
+configuracion_cifrada = cipher_suite.encrypt(configuracion_json)
+
+with open("configuracion_cifrada.json", "wb") as file:
+    file.write(configuracion_cifrada)
+print("Configuración cifrada guardada como 'configuracion_cifrada.json'.")
+
+# Descifrar la configuración
+with open("configuracion_cifrada.json", "rb") as file:
+    configuracion_cifrada = file.read()
+configuracion_descifrada = cipher_suite.decrypt(configuracion_cifrada)
+
+configuracion = json.loads(configuracion_descifrada.decode())
+print("Configuración descifrada:", configuracion)
 ```
 
-*Solución:* Este script verifica la contraseña del usuario contra un hash almacenado de manera segura.
+#### Guardar el Script
+
+Guarda el script con el nombre `gestionar_configuracion.py`.
+
+#### Ejecutar el Script
+
+```bash
+python gestionar_configuracion.py
+```
 
 ## Conclusión
 
-Implementar prácticas de seguridad en scripting Python es crucial para proteger los sistemas y los datos sensibles. El uso de bibliotecas para cifrar datos, el manejo seguro de contraseñas, la prevención de inyecciones SQL y la implementación de registros son pasos esenciales para crear scripts seguros y fiables.
+Implementar técnicas de cifrado y manejo seguro de contraseñas en scripts Python es crucial para proteger los datos sensibles y prevenir vulnerabilidades. Los ejemplos proporcionados en esta práctica te ayudarán a implementar estas técnicas en tus propios scripts, mejorando la seguridad y fiabilidad de tus aplicaciones y sistemas.
