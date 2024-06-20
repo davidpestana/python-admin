@@ -8,34 +8,38 @@
 ### **Ejercicio: Validador de Health y Ping de Servicios**
 
 **Descripción:** 
-Crear un script que lea un archivo JSON con una lista de servicios web, realice solicitudes para verificar su estado de salud y ping, y muestre los resultados en una interfaz de terminal con colores.
+Crear un script que lea un archivo JSON con una lista de servicios web, realice solicitudes para verificar su estado de salud y ping, y muestre los resultados en una interfaz de terminal con colores. El ejercicio se desarrollará en 3 iteraciones, cada una agregando más funcionalidad y mejorando el script.
 
-1. **Preparar el archivo JSON con los servicios:**
+### Preparar el Archivo JSON con los Servicios
 
-   Crear un archivo `services.json` con la siguiente estructura:
-   ```json
-   [
-       {
-           "name": "Google",
-           "url": "https://www.google.com",
-           "ping_url": "https://www.google.com"
-       },
-       {
-           "name": "GitHub",
-           "url": "https://api.github.com",
-           "ping_url": "https://github.com"
-       },
-       {
-           "name": "StackOverflow",
-           "url": "https://api.stackexchange.com/2.2/info?site=stackoverflow",
-           "ping_url": "https://stackoverflow.com"
-       }
-   ]
-   ```
+Crear un archivo `services.json` con la siguiente estructura:
 
-2. **Script para validar health y ping de servicios:**
+```json
+[
+    {
+        "name": "Google",
+        "url": "https://www.google.com",
+        "ping_url": "https://www.google.com"
+    },
+    {
+        "name": "GitHub",
+        "url": "https://api.github.com",
+        "ping_url": "https://github.com"
+    },
+    {
+        "name": "StackOverflow",
+        "url": "https://api.stackexchange.com/2.2/info?site=stackoverflow",
+        "ping_url": "https://stackoverflow.com"
+    }
+]
+```
 
-   Crear un script `service_health_check.sh`:
+### Iteración 1: Validar Health y Ping de Servicios
+
+1. **Objetivo:**
+   Leer el archivo JSON, realizar solicitudes HTTP para verificar el estado de salud y ping de los servicios, y mostrar los resultados en la terminal.
+
+2. **Código:**
    ```bash
    #!/bin/bash
 
@@ -51,7 +55,6 @@ Crear un script que lea un archivo JSON con una lista de servicios web, realice 
    # Función para verificar el estado de salud
    check_health() {
        local url=$1
-       local name=$2
        local status
 
        status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
@@ -66,7 +69,6 @@ Crear un script que lea un archivo JSON con una lista de servicios web, realice 
    # Función para verificar el ping
    check_ping() {
        local url=$1
-       local name=$2
        local status
 
        status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
@@ -91,42 +93,201 @@ Crear un script que lea un archivo JSON con una lista de servicios web, realice 
        echo -e "\nChecking ${YELLOW}$name${NC}:"
 
        echo -n "Health: "
-       check_health "$url" "$name"
+       check_health "$url"
 
        echo -n "Ping: "
-       check_ping "$ping_url" "$name"
+       check_ping "$ping_url"
    done
    ```
 
-3. **Dar permisos de ejecución al script:**
+3. **Explicación:**
+   - Definimos variables para los colores (`GREEN`, `RED`, `YELLOW`, `NC`).
+   - Utilizamos `jq` para leer y procesar el archivo JSON que contiene los servicios.
+   - Las funciones `check_health` y `check_ping` utilizan `curl` para realizar solicitudes HTTP y devolver el estado de salud y ping.
+   - Iteramos sobre cada servicio en el archivo JSON, extrayendo su nombre y URLs, y llamando a las funciones de verificación.
+
+### Iteración 2: Actualizar la Pantalla Dinámicamente
+
+1. **Objetivo:**
+   Hacer que el script se ejecute continuamente, actualizando la pantalla cada pocos segundos para mostrar el estado actual de los servicios.
+
+2. **Código:**
    ```bash
-   chmod +x service_health_check.sh
+   #!/bin/bash
+
+   # Colores para la interfaz
+   GREEN='\033[0;32m'
+   RED='\033[0;31m'
+   YELLOW='\033[0;33m'
+   NC='\033[0m' # No Color
+
+   # Leer el archivo JSON
+   SERVICES=$(jq -c '.[]' services.json)
+
+   # Función para verificar el estado de salud
+   check_health() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}HEALTHY${NC}"
+       else
+           echo -e "${RED}UNHEALTHY${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para verificar el ping
+   check_ping() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}REACHABLE${NC}"
+       else
+           echo -e "${RED}UNREACHABLE${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para mostrar el estado de los servicios
+   display_status() {
+       clear
+       echo -e "${YELLOW}Service Health and Ping Status${NC}"
+       echo "================================="
+
+       echo "$SERVICES" | while IFS= read -r service; do
+           name=$(echo "$service" | jq -r '.name')
+           url=$(echo "$service" | jq -r '.url')
+           ping_url=$(echo "$service" | jq -r '.ping_url')
+
+           echo -e "\nChecking ${YELLOW}$name${NC}:"
+
+           echo -n "Health: "
+           check_health "$url"
+
+           echo -n "Ping: "
+           check_ping "$ping_url"
+       done
+   }
+
+   # Loop infinito para actualizar la pantalla
+   while true; do
+       display_status
+       sleep 5
+   done
    ```
 
-4. **Ejecutar el script:**
+3. **Explicación:**
+   - Añadimos una función `display_status` para actualizar la pantalla y mostrar el estado de los servicios.
+   - Utilizamos `clear` para limpiar la pantalla antes de cada actualización.
+   - Creamos un loop infinito con `while true` que llama a `display_status` y duerme durante 5 segundos antes de actualizar la pantalla de nuevo.
+
+### Iteración 3: Crear una Interfaz Tipo `htop`
+
+1. **Objetivo:**
+   Mejorar la interfaz para que se vea más como `htop`, con una tabla organizada que muestre el estado de los servicios.
+
+2. **Código:**
    ```bash
-   ./service_health_check.sh
+   #!/bin/bash
+
+   # Colores para la interfaz
+   GREEN='\033[0;32m'
+   RED='\033[0;31m'
+   YELLOW='\033[0;33m'
+   NC='\033[0m' # No Color
+
+   # Leer el archivo JSON
+   SERVICES=$(jq -c '.[]' services.json)
+
+   # Función para verificar el estado de salud
+   check_health() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}HEALTHY${NC}"
+       else
+           echo -e "${RED}UNHEALTHY${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para verificar el ping
+   check_ping() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}REACHABLE${NC}"
+       else
+           echo -e "${RED}UNREACHABLE${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para mostrar el estado de los servicios
+   display_status() {
+       clear
+       echo -e "${YELLOW}Service Health and Ping Status${NC}"
+       echo "================================="
+       echo -e "${YELLOW}Service Name\t\tHealth\t\tPing${NC}"
+       echo "================================="
+
+       echo "$SERVICES" | while IFS= read -r service; do
+           name=$(echo "$service" | jq -r '.name')
+           url=$(echo "$service" | jq -r '.url')
+           ping_url=$(echo "$service" | jq -r '.ping_url')
+
+           echo -n -e "${YELLOW}$name${NC}\t\t"
+           echo -n "$(check_health "$url")\t\t"
+           echo "$(check_ping "$ping_url")"
+       done
+   }
+
+   # Loop infinito para actualizar la
+
+ pantalla
+   while true; do
+       display_status
+       sleep 5
+   done
    ```
+
+3. **Explicación:**
+   - Añadimos una tabla con encabezados para organizar mejor la información.
+   - Utilizamos `-e` con `echo` para permitir los caracteres de escape y formatear la salida en columnas.
+   - Actualizamos la pantalla cada 5 segundos con el loop infinito.
+
+### Dar Permisos de Ejecución al Script
+
+```bash
+chmod +x service_health_check.sh
+```
+
+### Ejecutar el Script
+
+```bash
+./service_health_check.sh
+```
 
 ### Explicación del Script:
 
-1. **Colores para la Interfaz:**
-   - Definimos variables para los colores (`GREEN`, `RED`, `YELLOW`, `NC`).
-   - Estas variables se utilizan para colorear la salida del terminal.
-
-2. **Leer el Archivo JSON:**
-   - Utilizamos `jq` para leer y procesar el archivo JSON que contiene los servicios.
-   - `jq -c '.[]' services.json` lee cada objeto en el archivo JSON y lo devuelve en una sola línea.
-
-3. **Funciones de Verificación:**
-   - `check_health` y `check_ping` son funciones que toman la URL y el nombre del servicio como argumentos y utilizan `curl` para realizar solicitudes HTTP.
-   - `curl -o /dev/null -s -w "%{http_code}\n"` realiza una solicitud y devuelve solo el código de estado HTTP.
-   - Basándonos en el código de estado, imprimimos "HEALTHY" o "UNHEALTHY" para el estado de salud y "REACHABLE" o "UNREACHABLE" para el ping, con el color correspondiente.
-
-4. **Iteración sobre los Servicios:**
-   - Iteramos sobre cada servicio en el archivo JSON, extraemos su nombre y URLs, y llamamos a las funciones de verificación.
-
-5. **Interfaz de Terminal:**
-   - La salida del script está diseñada para ser visualmente clara y fácil de leer, utilizando colores para indicar el estado de cada servicio.
+- **Colores para la Interfaz:**
+  - Definimos variables para los colores (`GREEN`, `RED`, `YELLOW`, `NC`) para colorear la salida del terminal.
+- **Leer el Archivo JSON:**
+  - Utilizamos `jq` para leer y procesar el archivo JSON que contiene los servicios.
+- **Funciones de Verificación:**
+  - `check_health` y `check_ping` utilizan `curl` para realizar solicitudes HTTP y devolver el estado de salud y ping.
+- **Iteración sobre los Servicios:**
+  - Iteramos sobre cada servicio en el archivo JSON, extrayendo su nombre y URLs, y llamando a las funciones de verificación.
+- **Interfaz de Terminal:**
+  - La salida del script está diseñada para ser visualmente clara y fácil de leer, utilizando colores y una tabla organizada para mostrar el estado de cada servicio.
+  - La pantalla se actualiza cada 5 segundos para mostrar el estado actual de los servicios.
 
 Este ejercicio enseña cómo utilizar `curl` y `jq` para interactuar con APIs y procesar datos JSON, además de proporcionar una interfaz de usuario amigable en el terminal para la administración de sistemas.
