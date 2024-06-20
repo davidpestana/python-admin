@@ -5,18 +5,18 @@
 
 #### **Teoría:**
 1. **Gestión de servicios en Bash:**
-   - [Uso de `systemctl`, `service`, etc.](sesion08/bash.servicios.md).
+   - [Uso de `systemctl`, `service`, etc.](bash.servicios.md).
 2. **Creación de daemons en Python:**
-   - [Uso del módulo `daemon` y técnicas para crear daemons](sesion08/python.daemon.md).
+   - [Uso del módulo `daemon` y técnicas para crear daemons](python.daemon.md).
 
 #### **Práctica:**
-1. [**Gestión de servicios en Bash:**](sesion08/practicas/PRACTICA.8.1.md)
+1. [**Gestión de servicios en Bash:**](practicas/PRACTICA.8.1.md)
    - Escribir scripts para iniciar, detener y supervisar servicios del sistema.
-2. [**Creación de daemons en Python:**](sesion08/practicas/PRACTICA.8.2.md)
+2. [**Creación de daemons en Python:**](practicas/PRACTICA.8.2.md)
    - Escribir un daemon en Python para una tarea específica.
 
 #### **Tarea:**
 - Crear un script Bash para gestionar un servicio personalizado y un daemon en Python para monitorear un recurso del sistema.
 
 #### **Extra:**
-- [Ejercicio Complementario: Sistema de Notificación de Estado de Servicios](sesion08/extras/EXTRA.8.md)
+- [Ejercicio Complementario: Sistema de Notificación de Estado de Servicios](extras/EXTRA.8.md)
