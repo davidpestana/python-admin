@@ -266,6 +266,87 @@ Crear un archivo `services.json` con la siguiente estructura:
    - Utilizamos `-e` con `echo` para permitir los caracteres de escape y formatear la salida en columnas.
    - Actualizamos la pantalla cada 5 segundos con el loop infinito.
 
+Vamos a corregir el problema de los tabuladores para alinear correctamente las columnas y añadir paralelismo para mejorar la velocidad del script.
+
+### Iteración 4: Mejorar la Alineación y Añadir Paralelismo
+
+1. **Objetivo:**
+   Corregir la alineación de las columnas y usar `xargs` para ejecutar las comprobaciones en paralelo, mejorando la eficiencia del script.
+
+2. **Código:**
+   ```bash
+   #!/bin/bash
+
+   # Colores para la interfaz
+   GREEN='\033[0;32m'
+   RED='\033[0;31m'
+   YELLOW='\033[0;33m'
+   NC='\033[0m' # No Color
+
+   # Leer el archivo JSON
+   SERVICES=$(jq -c '.[]' services.json)
+
+   # Función para verificar el estado de salud
+   check_health() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}HEALTHY${NC}"
+       else
+           echo -e "${RED}UNHEALTHY${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para verificar el ping
+   check_ping() {
+       local url=$1
+       local status
+
+       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+
+       if [ "$status" -eq 200 ]; then
+           echo -e "${GREEN}REACHABLE${NC}"
+       else
+           echo -e "${RED}UNREACHABLE${NC} (Status Code: $status)"
+       fi
+   }
+
+   # Función para mostrar el estado de los servicios
+   display_status() {
+       clear
+       echo -e "${YELLOW}Service Health and Ping Status${NC}"
+       echo "================================="
+       printf "%-20s %-20s %-20s\n" "Service Name" "Health" "Ping"
+       echo "================================="
+
+       echo "$SERVICES" | while IFS= read -r service; do
+           name=$(echo "$service" | jq -r '.name')
+           url=$(echo "$service" | jq -r '.url')
+           ping_url=$(echo "$service" | jq -r '.ping_url')
+
+           health_status=$(check_health "$url" &)
+           ping_status=$(check_ping "$ping_url" &)
+           wait
+
+           printf "%-20s %-20s %-20s\n" "$name" "$health_status" "$ping_status"
+       done
+   }
+
+   # Loop infinito para actualizar la pantalla
+   while true; do
+       display_status
+       sleep 5
+   done
+   ```
+
+3. **Explicación:**
+   - Utilizamos `printf` en lugar de `echo` para alinear correctamente las columnas.
+   - Añadimos el uso de `&` para ejecutar `check_health` y `check_ping` en paralelo.
+   - Utilizamos `wait` para asegurarnos de que ambas comprobaciones hayan terminado antes de imprimir el resultado.
+
 ### Dar Permisos de Ejecución al Script
 
 ```bash
@@ -291,5 +372,7 @@ chmod +x service_health_check.sh
 - **Interfaz de Terminal:**
   - La salida del script está diseñada para ser visualmente clara y fácil de leer, utilizando colores y una tabla organizada para mostrar el estado de cada servicio.
   - La pantalla se actualiza cada 5 segundos para mostrar el estado actual de los servicios.
+- **Paralelismo:**
+  - Ejecutamos las comprobaciones de salud y ping en paralelo para mejorar la eficiencia del script. Utilizamos `wait` para asegurarnos de que ambas comprobaciones hayan terminado antes de imprimir el resultado.
 
-Este ejercicio enseña cómo utilizar `curl` y `jq` para interactuar con APIs y procesar datos JSON, además de proporcionar una interfaz de usuario amigable en el terminal para la administración de sistemas.
+Este ejercicio enseña cómo utilizar `curl` y `jq` para interactuar con APIs y procesar datos JSON, además de proporcionar una interfaz de usuario amigable en el terminal para la administración de sistemas. La adición de paralelismo mejora la eficiencia y la velocidad del script.
