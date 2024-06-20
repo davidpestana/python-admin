@@ -8,6 +8,8 @@
    - [Validación de entrada, manejo seguro de contraseñas, etc.](bash.seguridad.md).
 2. **Buenas prácticas de seguridad en Python:**
    - [Uso de bibliotecas como `cryptography`, manejo seguro de datos, etc.](python.seguridad.md).
+3. **Uso de Vaults para la gestion de secretos**
+   - [Uso e integración de soluciones VAULT](vaults.md).
 
 #### **Práctica:**
 1. [**Seguridad en Bash:**](practicas/PRACTICA.9.1.md)
