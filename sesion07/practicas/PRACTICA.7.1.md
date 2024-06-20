@@ -1,3 +1,5 @@
+Aquí tienes el script corregido para que la salida en Markdown sea correcta y el script funcione sin problemas:
+
 ### Práctica: Integración en Bash con `curl` y `jq` para Validar Health y Ping de Servicios
 
 #### **Objetivos:**
@@ -246,13 +248,13 @@ Crear un archivo `services.json` con la siguiente estructura:
 
            echo -n -e "${YELLOW}$name${NC}\t\t"
            echo -n "$(check_health "$url")\t\t"
+
+
            echo "$(check_ping "$ping_url")"
        done
    }
 
-   # Loop infinito para actualizar la
-
- pantalla
+   # Loop infinito para actualizar la pantalla
    while true; do
        display_status
        sleep 5
