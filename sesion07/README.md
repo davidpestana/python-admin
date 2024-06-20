@@ -19,4 +19,8 @@
 - Crear un script que utilice una API externa para obtener datos y procesarlos.
 
 #### **Extra:**
-- [Ejercicio Complementario: Integración con Servicios en la Nube](extras/EXTRA.7.md)
+**Controlador de Escalado de Contenedores Nginx con Bash y Docker Compose**
+
+#### **Objetivo:**
+Aprender a utilizar Bash y Docker Compose para automatizar el despliegue, escalado y gestión de contenedores Nginx mediante un script controlador de escalado.
+- [Controlador de escalado](extras/EXTRA.7.md)
