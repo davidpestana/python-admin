@@ -300,80 +300,87 @@ Vamos a modificar el script para utilizar `xargs` para ejecutar las comprobacion
 
 1. **Código:**
    ```bash
-   #!/bin/bash
+#!/bin/bash
 
-   # Colores para la interfaz
-   GREEN='\033[0;32m'
-   RED='\033[0;31m'
-   YELLOW='\033[0;33m'
-   NC='\033[0m' # No Color
+# Colores para la interfaz
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
 
-   # Leer el archivo JSON
-   SERVICES=$(jq -c '.[]' services.json)
+# Leer el archivo JSON
+SERVICES=$(jq -c '.[]' services.json)
 
-   # Función para verificar el estado de salud
-   check_health() {
-       local url=$1
-       local status
+# Función para verificar el estado de salud
+check_health() {
+    local url=$1
+    local status
 
-       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+    status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
 
-       if [ "$status" -eq 200 ]; then
-           echo -e "${GREEN}HEALTHY${NC}"
-       else
-           echo -e "${RED}UNHEALTHY${NC} (Status Code: $status)"
-       fi
-   }
+    if [ "$status" -eq 200 ]; then
+        echo -e "${GREEN}HEALTHY${NC}"
+    else
+        echo -e "${RED}UNHEALTHY${NC} (Status Code: $status)"
+    fi
+}
 
-   # Función para verificar el ping
-   check_ping() {
-       local url=$1
-       local status
+# Función para verificar el ping
+check_ping() {
+    local url=$1
+    local status
 
-       status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
+    status=$(curl -o /dev/null -s -w "%{http_code}\n" "$url")
 
-       if [ "$status" -eq 200 ]; then
-           echo -e "${GREEN}REACHABLE${NC}"
-       else
-           echo -e "${RED}UNREACHABLE${NC} (Status Code: $status)"
-       fi
-   }
+    if [ "$status" -eq 200 ]; then
+        echo -e "${GREEN}REACHABLE${NC}"
+    else
+        echo -e "${RED}UNREACHABLE${NC} (Status Code: $status)"
+    fi
+}
 
-   # Función para mostrar el estado de los servicios
-   display_status() {
-       clear
-       echo -e "${YELLOW}Service Health and Ping Status${NC}"
-       echo "================================="
-       printf "%-20s %-20s %-20s\n" "Service Name" "Health" "Ping"
-       echo "================================="
+# Exportar las funciones y variables de color para que estén disponibles en los subshells
+export -f check_health
+export -f check_ping
+export GREEN RED YELLOW NC
 
-       echo "$SERVICES" | while IFS= read -r service; do
-           name=$(echo "$service" | jq -r '.name')
-           url=$(echo "$service" | jq -r '.url')
-           ping_url=$(echo "$service" | jq -r '.ping_url')
+# Función para mostrar el estado de los servicios
+display_status() {
+    clear
+    echo -e "${YELLOW}Service Health and Ping Status${NC}"
+    echo "================================="
+    printf "%-20s %-20s %-20s\n" "Service Name" "Health" "Ping"
+    echo "================================="
 
-           # Crear archivos temporales para almacenar los resultados
-           health_file=$(mktemp)
-           ping_file=$(mktemp)
+    echo "$SERVICES" | while IFS= read -r service; do
+        name=$(echo "$service" | jq -r '.name')
+        url=$(echo "$service" | jq -r '.url')
+        ping_url=$(echo "$service" | jq -r '.ping_url')
 
-           echo "$url" | xargs -I{} -P2 bash -c 'check_health "{}" > '"$health_file"''
-           echo "$ping_url" | xargs -I{} -P2 bash -c 'check_ping "{}" > '"$ping_file"''
+        # Crear archivos temporales para almacenar los resultados
+        health_file=$(mktemp)
+        ping_file=$(mktemp)
 
-           health_status=$(cat "$health_file")
-           ping_status=$(cat "$ping_file")
+        # Ejecutar las comprobaciones en paralelo
+        echo "$url" | xargs -I{} -P1 bash -c "check_health '{}' > '$health_file'" &
+        echo "$ping_url" | xargs -I{} -P1 bash -c "check_ping '{}' > '$ping_file'" &
+        wait
 
-           # Eliminar archivos temporales
-           rm "$health_file" "$ping_file"
+        health_status=$(cat "$health_file")
+        ping_status=$(cat "$ping_file")
 
-           printf "%-20s %-20s %-20s\n" "$name" "$health_status" "$ping_status"
-       done
-   }
+        # Eliminar archivos temporales
+        rm "$health_file" "$ping_file"
 
-   # Loop infinito para actualizar la pantalla
-   while true; do
-       display_status
-       sleep 5
-   done
+        printf "%-20s %-20s %-20s\n" "$name" "$health_status" "$ping_status"
+    done
+}
+
+# Loop infinito para actualizar la pantalla
+while true; do
+    display_status
+    sleep 5
+done
    ```
 
 2. **Explicación:**
