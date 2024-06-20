@@ -273,7 +273,32 @@ Vamos a corregir el problema de los tabuladores para alinear correctamente las c
 1. **Objetivo:**
    Corregir la alineación de las columnas y usar `xargs` para ejecutar las comprobaciones en paralelo, mejorando la eficiencia del script.
 
-2. **Código:**
+### Explicación de `xargs`
+
+`xargs` es una utilidad de línea de comandos en Unix y Linux que se utiliza para construir y ejecutar comandos a partir de la entrada estándar. Es particularmente útil para pasar una gran cantidad de argumentos a un comando que no puede manejar tantos argumentos directamente.
+
+#### **Uso Básico:**
+El uso más común de `xargs` es con el comando `find`, para ejecutar un comando sobre cada archivo encontrado.
+
+```bash
+find . -name '*.txt' | xargs rm
+```
+
+En este ejemplo, `find` encuentra todos los archivos `.txt` en el directorio actual y sus subdirectorios, y luego `xargs` pasa estos archivos como argumentos al comando `rm` para eliminarlos.
+
+#### **Ventajas de `xargs`:**
+1. **Manejo de Argumentos Largos:** Puede manejar listas de argumentos más largas que las que la mayoría de los comandos pueden aceptar directamente.
+2. **Ejecución en Paralelo:** Con la opción `-P`, `xargs` puede ejecutar comandos en paralelo, lo que puede mejorar el rendimiento para tareas que no dependen del orden de ejecución.
+
+### Aplicación de `xargs` en el Script
+
+Para mejorar el rendimiento del script que verifica el estado de salud y el ping de varios servicios web, podemos utilizar `xargs` con la opción `-P` para ejecutar las verificaciones en paralelo. Sin embargo, el script anterior ya está usando `&` para ejecutar comandos en paralelo y `wait` para esperar que terminen. Podemos aplicar `xargs` para demostrar otra manera de paralelizar la ejecución.
+
+#### **Código Actualizado con `xargs`:**
+
+Vamos a modificar el script para utilizar `xargs` para ejecutar las comprobaciones de salud y ping en paralelo.
+
+1. **Código:**
    ```bash
    #!/bin/bash
 
@@ -327,9 +352,18 @@ Vamos a corregir el problema de los tabuladores para alinear correctamente las c
            url=$(echo "$service" | jq -r '.url')
            ping_url=$(echo "$service" | jq -r '.ping_url')
 
-           health_status=$(check_health "$url" &)
-           ping_status=$(check_ping "$ping_url" &)
-           wait
+           # Crear archivos temporales para almacenar los resultados
+           health_file=$(mktemp)
+           ping_file=$(mktemp)
+
+           echo "$url" | xargs -I{} -P2 bash -c 'check_health "{}" > '"$health_file"''
+           echo "$ping_url" | xargs -I{} -P2 bash -c 'check_ping "{}" > '"$ping_file"''
+
+           health_status=$(cat "$health_file")
+           ping_status=$(cat "$ping_file")
+
+           # Eliminar archivos temporales
+           rm "$health_file" "$ping_file"
 
            printf "%-20s %-20s %-20s\n" "$name" "$health_status" "$ping_status"
        done
@@ -342,10 +376,14 @@ Vamos a corregir el problema de los tabuladores para alinear correctamente las c
    done
    ```
 
-3. **Explicación:**
-   - Utilizamos `printf` en lugar de `echo` para alinear correctamente las columnas.
-   - Añadimos el uso de `&` para ejecutar `check_health` y `check_ping` en paralelo.
-   - Utilizamos `wait` para asegurarnos de que ambas comprobaciones hayan terminado antes de imprimir el resultado.
+2. **Explicación:**
+   - **Crear Archivos Temporales:** Creamos archivos temporales para almacenar los resultados de las verificaciones de salud y ping.
+   - **Ejecutar `xargs` en Paralelo:**
+     - Usamos `xargs -I{} -P2` para ejecutar `check_health` y `check_ping` en paralelo.
+     - `-I{}` especifica un reemplazo para el argumento del comando.
+     - `-P2` indica que se ejecutarán hasta 2 comandos en paralelo.
+   - **Leer Resultados:** Leemos los resultados de los archivos temporales.
+   - **Eliminar Archivos Temporales:** Eliminamos los archivos temporales después de leer los resultados.
 
 ### Dar Permisos de Ejecución al Script
 
@@ -372,7 +410,8 @@ chmod +x service_health_check.sh
 - **Interfaz de Terminal:**
   - La salida del script está diseñada para ser visualmente clara y fácil de leer, utilizando colores y una tabla organizada para mostrar el estado de cada servicio.
   - La pantalla se actualiza cada 5 segundos para mostrar el estado actual de los servicios.
-- **Paralelismo:**
-  - Ejecutamos las comprobaciones de salud y ping en paralelo para mejorar la eficiencia del script. Utilizamos `wait` para asegurarnos de que ambas comprobaciones hayan terminado antes de imprimir el resultado.
+- **Paralelismo con `xargs`:**
+  - Ejecutamos las comprobaciones de salud y ping en paralelo utilizando `xargs` para mejorar la eficiencia del script.
+  - Utilizamos archivos temporales para almacenar y leer los resultados de las comprobaciones en paralelo.
 
-Este ejercicio enseña cómo utilizar `curl` y `jq` para interactuar con APIs y procesar datos JSON, además de proporcionar una interfaz de usuario amigable en el terminal para la administración de sistemas. La adición de paralelismo mejora la eficiencia y la velocidad del script.
+Este ejercicio enseña cómo utilizar `curl` y `jq` para interactuar con APIs y procesar datos JSON, además de proporcionar una interfaz de usuario amigable en el terminal para la administración de sistemas. La adición de paralelismo con `xargs` mejora la eficiencia y la velocidad del script.
